@@ -27,9 +27,6 @@ glbuilder-patch: glbuilder-prepare
 	cp -f $(TOP_DIR)/files/mt7621_glinet_gl-mt1300.dts $(IMAGEBUILDER_DIR)/target/linux/ramips/dts
 	cp -r $(SDK_DIR)/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/linux-5.10.176 \
 		$(IMAGEBUILDER_DIR)/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621
-	sed -i '/gl_collision_package/d' $(BUILDER_DIR)/board/mt1300/$(VERSION)/version_info.mk
-	echo "gl_collision_package:= -dnsmasq -wpad-basic-wolfssl -libustream-wolfssl libustream-openssl" \
-		>> $(BUILDER_DIR)/board/mt1300/$(VERSION)/version_info.mk
 
 image: glbuilder-patch
 	env PATH=$(PATH):$(SDK_DIR)/staging_dir/host/bin:$(TOOLCHAIN_DIR)/bin \
@@ -45,4 +42,4 @@ image: glbuilder-patch
 	make -C $(BUILDER_DIR)
 
 clean:
-	rm -rf $(BUILDER_DIR)
+	make -C $(BUILDER_DIR) clean
