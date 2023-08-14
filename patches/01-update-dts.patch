@@ -1,0 +1,128 @@
+diff --git a/target/linux/ramips/dts/mt7621_glinet_gl-mt1300.dts b/target/linux/ramips/dts/mt7621_glinet_gl-mt1300.dts
+index d5f1822..d514d21 100644
+--- a/target/linux/ramips/dts/mt7621_glinet_gl-mt1300.dts
++++ b/target/linux/ramips/dts/mt7621_glinet_gl-mt1300.dts
+@@ -10,10 +10,10 @@
+ 	model = "GL.iNet GL-MT1300";
+ 
+ 	aliases {
+-		//led-boot = &led_run;
+-		//led-failsafe = &led_run;
+-		//led-running = &led_run;
+-		//led-upgrade = &led_run;
++		led-boot = &led_blue;
++		led-failsafe = &led_blue;
++		led-running = &led_blue;
++		led-upgrade = &led_blue;
+ 		label-mac-device = &wan;
+ 	};
+ 
+@@ -24,12 +24,12 @@
+ 		#size-cells = <1>;
+ 		model = "mt1300";
+ 		wan = "wan";
+-		lan = "lan1 lan2";
+-		reset-button = "gpio-18";
+-		flash_size = <32>;
+-		switch-button = "gpio-16";
++		lan = "lan1 lan2 lan3 lan4";
++		reset-button = "gpio-3";
++		flash_size = <16>;
++		switch-button = "";
+ 		radio = "radio0";
+-		usb-port = "1-1,2-1";
++		usb-port = "";
+ 		factory_data {
+ 			device_mac = "factory", "0x4000";
+ 			device_ddns = "factory", "0x4010";
+@@ -48,29 +48,27 @@
+ 
+ 		reset {
+ 			label = "reset";
+-			gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
++			gpios = <&gpio 3 GPIO_ACTIVE_LOW>;
+ 			linux,code = <KEY_RESTART>;
+ 		};
+-
+-		switch {
+-			label = "switch";
+-			gpios = <&gpio 16 GPIO_ACTIVE_LOW>;
+-			linux,code = <KEY_SETUP>;
+-			linux,input-type = <EV_SW>;
+-		};
+ 	};
+ 
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+-		led_run: run {
+-			label = "blue:run";
+-			gpios = <&gpio 14 GPIO_ACTIVE_HIGH>;
++		stat_r {
++			label = "red:status";
++			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
+ 		};
+ 
+-		system {
+-			label = "white:system";
+-			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
++		stat_y {
++			label = "yellow:status";
++			gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
++		};
++
++		led_blue: stat_b {
++			label = "blue:status";
++			gpios = <&gpio 15 GPIO_ACTIVE_LOW>;
+ 		};
+ 	};
+ };
+@@ -79,10 +77,6 @@
+ 	status = "okay";
+ };
+ 
+-&sdhci {
+-	status = "okay";
+-};
+-
+ &spi0 {
+ 	status = "okay";
+ 
+@@ -123,7 +117,7 @@
+ 
+ 			partition@1ff0000 {
+ 				label = "log";
+-                                reg = <0x1fe0000 0x20000>;
++                reg = <0x1fe0000 0x20000>;
+ 			};
+ 		};
+ 	};
+@@ -150,16 +144,26 @@
+ 
+ &switch0 {
+ 	ports {
+-		port@2 {
++		port@0 {
+ 			status = "okay";
+ 			label = "lan1";
+ 		};
+ 
+-		port@3 {
++		port@1 {
+ 			status = "okay";
+ 			label = "lan2";
+ 		};
+ 
++		port@2 {
++			status = "okay";
++			label = "lan3";
++		};
++
++		port@3 {
++			status = "okay";
++			label = "lan4";
++		};
++
+ 		wan: port@4 {
+ 			status = "okay";
+ 			label = "wan";

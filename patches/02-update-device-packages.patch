@@ -1,0 +1,22 @@
+--- a/.targetinfo
++++ b/.targetinfo
+@@ -21194,7 +21194,7 @@ Build firmware images for GeHua GHL-R-001
+ 
+ Target-Profile: DEVICE_glinet_gl-mt1300
+ Target-Profile-Name: GL.iNet GL-MT1300
+-Target-Profile-Packages: kmod-mt7615e kmod-mt7615-firmware kmod-usb3 kmod-sdhci-mt7620 
++Target-Profile-Packages: kmod-mt7615e kmod-mt7615-firmware
+ Target-Profile-hasImageMetadata: 0
+ Target-Profile-SupportedDevices: glinet,gl-mt1300
+ 
+--- a/target/linux/ramips/image/mt7621.mk
++++ b/target/linux/ramips/image/mt7621.mk
+@@ -722,7 +722,7 @@ define Device/glinet_gl-mt1300
+   DEVICE_VENDOR := GL.iNet
+   DEVICE_MODEL := GL-MT1300
+   OLD_SUPPORTED_DEVICES := gl-mt1300
+-  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware kmod-usb3 kmod-sdhci-mt7620
++  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7615-firmware
+   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | check-size | append-gl-metadata
+ endef
+ TARGET_DEVICES += glinet_gl-mt1300
