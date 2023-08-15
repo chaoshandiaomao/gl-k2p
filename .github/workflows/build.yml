@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Prepare
@@ -23,3 +25,8 @@ jobs:
         with:
           name: firmware
           path: glbuilder/bin/*/target/*
+      - uses: ncipollo/release-action@v1
+        with:
+          tag: 4.3.6
+          artifacts: "glbuilder/bin/*/target/*.bin"
+          allowUpdates: true
