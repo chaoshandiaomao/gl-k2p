@@ -1,0 +1,2 @@
+uci set upgrade.general.url=www
+uci commit upgrade
